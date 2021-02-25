@@ -20,6 +20,7 @@ const server = async () => {
     const { MONGO_URI } = process.env;
 
     if (!MONGO_URI) throw new Error("MONGI_URI is required!!!");
+    if (!PORT) throw new Error("PORT is required!!!");
 
     await mongoose.connect(MONGO_URI, {
       useCreateIndex: true,
@@ -31,7 +32,7 @@ const server = async () => {
     app.use("/user", userRouter);
     app.use("/blog", blogRouter);
 
-    app.listen(3000, async () => {
+    app.listen(PORT, async () => {
       // await Promise.all([
       //   generateFakeData(10, 10, 10),
       //   generateFakeData(10, 10, 10),
@@ -40,7 +41,7 @@ const server = async () => {
       //   generateFakeData(10, 10, 10),
       // ]);
       //await generateFakeData(10, 20, 100); // dummy data gen
-      console.log("Server lisntening on port 3000");
+      console.log(`Server lisntening on port ${PORT}`);
     });
   } catch (err) {
     console.log(err);
