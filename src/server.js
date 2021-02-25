@@ -17,14 +17,16 @@ const { userRouter, blogRouter, commentRouter } = require("./routes/");
 
 const server = async () => {
   try {
-    const { MONGO_URI } = process.env;
+    const { MONGO_URI, PORT } = process.env;
 
     if (!MONGO_URI) throw new Error("MONGI_URI is required!!!");
     if (!PORT) throw new Error("PORT is required!!!");
 
     await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true, 
+      useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false /* useNewUrlParser: true, useUnifiedTopology: true */,
+      useFindAndModify: false, 
     });
     //mongoose.set("debug", true);
     //await generateFakeData(100, 10, 300); // dummy data gen
